@@ -4,10 +4,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { ProductService } from '../../services/product.service';
+import { CartService } from '../../services/cart.service';
 import { Product } from '../../../models/product';
 
-import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-product-item-detail',
@@ -20,12 +19,11 @@ export class ProductItemDetailComponent implements OnInit {
   product: Product;
 
   constructor(private route: ActivatedRoute, 
-    private productService: ProductService, 
     private router: Router, 
     private cart: CartService) 
   { 
     this.id = -1; 
-    this.amount = 0;
+    this.amount = 1;
     this.product = {
       name: '',
       id: -1,
@@ -41,7 +39,7 @@ export class ProductItemDetailComponent implements OnInit {
       // In a real app: dispatch action to load the details here.
     });
 
-    this.productService.getProducts().subscribe(res => {
+    this.cart.getProducts().subscribe(res => {
       //may need to add a quantity property
       let result = res.filter(obj => {
         return obj.id == this.id;
@@ -60,11 +58,18 @@ export class ProductItemDetailComponent implements OnInit {
 
   addToCart(p: Product, num: number)
   {
-    this.cart.addToCart(p, this.amount);
-    window.alert(`${num} ${p.name}(s) added to cart!`);
+    if(num > 0)
+    {
+      this.cart.addToCart(p, this.amount);
+      window.alert(`${num} ${p.name}(s) added to cart!`);
 
-    //reset the amount
-    this.amount = 0;
+      //reset the amount
+      this.amount = 0;
+    }
+    else
+    {
+      window.alert(`Can't order${num} ${p.name}(s)!`);
+    }
   }
 
 }

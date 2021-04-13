@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../../models/product';
+import { Observable } from 'rxjs';
+import { HttpClient } from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +13,7 @@ export class CartService {
   owner: string;
   total: number;
 
-  constructor() {
+  constructor(private httpClient: HttpClient) {
     this.total = 0;
     this.products = [];
     this.owner = '';
@@ -20,8 +22,19 @@ export class CartService {
   //add num products to cart
   addToCart(p: Product, num: number): void
   {
-    this.products.push([p, num]);
-    //console.log(this.products);
+    let result = this.products.filter( obj => {
+      obj[0].id === p.id;
+    } );
+
+    if(result.length === 0)
+    {
+      this.products.push([p, num]);
+    }
+    else
+    {
+      //add it to the count
+      result[0][1] += num;
+    }
   }
 
   getItems(): [Product, number][]
@@ -42,5 +55,10 @@ export class CartService {
   clear(): void
   {
     this.products = [];
+  }
+
+  getProducts(): Observable<Product[]>
+  {
+    return this.httpClient.get<Product[]>("assets/data.json");
   }
 }

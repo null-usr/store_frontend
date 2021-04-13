@@ -34,4 +34,9 @@ export class CartItemComponent implements OnInit {
     this.updateAmount.emit(data);
   }
 
+  removeFromCart(data:Product):void
+  {
+    this.updateAmount.emit([data, 0]);
+  }
+
 }

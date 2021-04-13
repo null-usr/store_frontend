@@ -23,9 +23,9 @@
 				</div>
 				<div class="form-group">
 					<label for="creditcard">Credit Card</label><br>
-					<input type="text" class="form-control number-input" name="Credit card number" required minlength="16" maxlength="16" placeholder="16 digit number" [(ngModel)] = "creditcard"><br>
+					<input type="number" class="form-control number-input" name="Credit card number" required minlength="16" maxlength="16" placeholder="16 digit number" [(ngModel)] = "creditcard"><br>
 				</div>
-				<input type="submit" [disabled]="form.invalid" value="Submit" class="btn btn-success">
+				<input type="submit" [disabled]="form.invalid || cart.products.length === 0" value="Submit" class="btn btn-success">
 			</form>
 		</div>
 	</div>

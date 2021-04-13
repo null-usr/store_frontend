@@ -9,6 +9,7 @@
 			<form #form="ngForm" action="">
 				<!-- On model change call the update cart amount function-->
 				<input [(ngModel)]="amount" (ngModelChange)="updateCartAmount([product,amount])" class="select-input" required type="number" min="0" max="10" value="{{amount}}" name="amount" >
+				<input type="submit" class="btn btn-failure" value="Remove from cart" (click)="removeFromCart(product)">
 			</form>
 		</div>
 	</div>

@@ -28,11 +28,18 @@ export class ProductItemComponent implements OnInit {
 
   addToCart(p: Product, num: number): void
   {
-    this.cart.addToCart(p, num);
-    window.alert(`${num} ${p.name}(s) added to cart!`);
+    if(num > 0)
+    {
+      this.cart.addToCart(p, this.amount);
+      window.alert(`${num} ${p.name}(s) added to cart!`);
 
-    //reset the amount
-    this.amount = 0;
+      //reset the amount
+      this.amount = 0;
+    }
+    else
+    {
+      window.alert(`Can't order${num} ${p.name}(s)!`);
+    }
   }
 
 }
