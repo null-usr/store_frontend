@@ -34,7 +34,7 @@ export class ProductItemComponent implements OnInit {
       window.alert(`${num} ${p.name}(s) added to cart!`);
 
       //reset the amount
-      this.amount = 0;
+      this.amount = 1;
     }
     else
     {

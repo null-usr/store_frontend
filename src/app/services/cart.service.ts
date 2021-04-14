@@ -23,7 +23,7 @@ export class CartService {
   addToCart(p: Product, num: number): void
   {
     let result = this.products.filter( obj => {
-      obj[0].id === p.id;
+      return obj[0].id === p.id;
     } );
 
     if(result.length === 0)
